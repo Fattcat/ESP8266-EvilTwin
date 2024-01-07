@@ -10,6 +10,20 @@ Arduboy2 arduboy;
 
 ESP8266WebServer server(80);
 
+
+// ------------------------------------------
+
+// CONNECTION SD CARD MODULE TO ESP8266
+
+// VCC (SD Card) --> 3.3V 
+// MOSI (SD Card) --> D7
+// MISO (SD Card) --> D6 
+// SCK (SD Card) --> D5
+// CS (SD Card) --> D8
+
+// ------------------------------------------  
+
+
 void setup() {
   Serial.begin(115200);
 
