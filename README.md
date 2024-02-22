@@ -3,7 +3,7 @@
 
 ## ! For Education Purposes ONLY !
 - ! DO NOT ! USE THIS TOOL FOR ILLEGAL ACTIVITIES !
-- ! USING THIS TOOL YOU ARE ACCEPTED ALL RISK  THAT MAY BE CREATED AT YOUR OWN RISK OR DANGER ACTIVITIES !
+- ! USING THIS TOOL YOU ARE ACCEPTED ALL RISK THAT MAY BE CREATED AT YOUR OWN RISK OR DANGER ACTIVITIES !
 
 # INSTALLATION / GUIDE
 
@@ -12,7 +12,7 @@
 git clone https://github.com/Fattcat/ESP8266-EvilTwin.git
 ```
 - and you know what will be next when u have Linux ...
-## Using on Windows
+## Using Windows
 - Just download this repo (Click on GREEN Button and then click on Download ZIP)
 - One. Clone this GitHub Repository or download it.
 - Two. Go to your Downloaded ZIP File and extract it to some file and save it.
