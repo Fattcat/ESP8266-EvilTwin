@@ -1,6 +1,6 @@
 # ESP8266-EvilTwin
 - Custom Evil Twin (edited) attack with Fake Acess Point
-
+- connect to : 172.0.0.1
 ## ! For Education Purposes ONLY !
 - ! DO NOT ! USE THIS TOOL FOR ILLEGAL ACTIVITIES !
 - ! USING THIS TOOL YOU ARE ACCEPTED ALL RISK THAT MAY BE CREATED AT YOUR OWN RISK OR DANGER ACTIVITIES !
