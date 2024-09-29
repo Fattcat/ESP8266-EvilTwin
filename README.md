@@ -4,9 +4,13 @@
 ## ! For Education Purposes ONLY !
 - ! DO NOT ! USE THIS TOOL FOR ILLEGAL ACTIVITIES !
 - ! USING THIS TOOL YOU ARE ACCEPTED ALL RISK THAT MAY BE CREATED AT YOUR OWN RISK OR DANGER ACTIVITIES !
-
+# PIN CONNECTION
+## Oled -> esp8266
+- VCC -> 3.3V
+- GND -> GND
+- SCL -> D1
+- SDA -> D2
 # INSTALLATION / GUIDE
-
 ## Using Linux
 ```
 git clone https://github.com/Fattcat/ESP8266-EvilTwin.git
