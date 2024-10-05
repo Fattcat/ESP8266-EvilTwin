@@ -7,6 +7,24 @@
 #include <SD.h>  // Pridaj knižnicu pre SD kartu
 #include <SPI.h> // Knižnica pre SPI komunikáciu so SD kartou
 
+// ------------------------------------------------------------------------------
+// CONNECTION
+
+// SD Card Module (COnnection for D1 mini SD Card Module with esp8266 NodeMCU)
+// VCC -> 3.3V
+// GND -> GND
+// MOSI -> D6
+// MISO -> D7
+// SCK -> D5
+// CS -> D4
+
+// Oled Display
+// VCC -> 3.3V
+// GND -> GND
+// SCL -> D1
+// SDA -> D2
+// ------------------------------------------------------------------------------
+
 // OLED nastavenia
 #define SCREEN_WIDTH 128 
 #define SCREEN_HEIGHT 64 
