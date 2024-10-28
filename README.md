@@ -13,7 +13,7 @@
 # INSTALLATION / GUIDE
 ## Using Linux
 ```
-git clone https://github.com/Fattcat/ESP8266-EvilTwin.git
+git clone https://github.com/Fattcat/ESP8266-ESP32-EvilTwin.git
 ```
 - and you know what will be next when u have Linux ...
 ## Using Windows
